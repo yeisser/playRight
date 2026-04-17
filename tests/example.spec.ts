@@ -21,4 +21,5 @@ test('test', async ({ page }) => {
   await page.goto('https://www.mercadolibre.com.pe')
   await page.locator('')
   await page.pause();
+  await page.locator('')
 });
