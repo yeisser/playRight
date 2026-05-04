@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test';
 
+
+//Ejecutar desde consola: npx playwright test -g "test2"
+
 test('Aprendiendo playwright', async ({ page }) => {
   await page.goto('https://playwright.dev/');
 
@@ -26,8 +29,18 @@ test('test', async ({ page }) => {
 });
 
 test('test2', async ({ page }) => {
-  await page.goto('https://www.google.com')
-  await page.getByLabel('Search', { exact: true }).fill('Gatitos');
+  // Maximizar el navegador
+  await page.setViewportSize({ width: 1920, height: 1080 });
+
+  await page.goto('https://duckduckgo.com');
+  await page.locator('input[name="q"]').fill('Gatitos');
   await page.keyboard.press('Enter');
-  await page.locator('.sPlQxd').click();
+
+  // Esperar a que carguen los resultados
+  await page.waitForSelector('ol[class*="react-results"]');
+
+  // Dos scrolls hacia abajo
+  await page.mouse.wheel(0, 600);
+  await page.waitForTimeout(500);
+  await page.mouse.wheel(0, 600);
 });
